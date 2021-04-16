@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title>Home</title>
+</head>
+<body>
+	<section
+		class="banner d-flex justify-content-center align-items-center">
+		<div class="text text-center">
+			<h1>Store your Contact</h1>
+			<p>Manage, access your contacts any time anywhere</p>
+			<p>Start saving your contacts in a smarter way.We provide very
+				efficient and smarter way of handling contacts</p>
+			<a th:href="@{/signup}" class="btn btn-primary btn-large buttonStyle shadow-none">Get started</a>
+		</div>
+	</section>
+</body>
+</html>

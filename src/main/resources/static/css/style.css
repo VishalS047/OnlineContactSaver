@@ -1,0 +1,159 @@
+body {
+	background: #e7d6ef !important;
+}
+
+.bg-primary {
+	background: #9b43cb !important;
+}
+
+.homeNavbar {
+	font-family: 'Chango', cursive;
+}
+
+.banner {
+	width: 100%;
+	height: 94vh;
+	background: url(/image/phone_Image.jpg);
+	background-size: cover;
+}
+
+.text {
+	position: absolute;
+	top: 80px; color : #b14377 !important;
+	font-family: 'Chango', cursive;
+	color: #b14377 !important; font-family : 'Chango', cursive;
+	font-size: 20px;
+}
+
+.buttonStyle {
+	background: #9b43cb !important;
+	border: none;  	
+	border-radius: 18px;
+	outline: none;
+}
+.card {
+	box-shadow: 10px 10px 5px #aaaaaa;
+}
+.card-head{
+	padding: 7px;
+}
+
+.cardDesign {
+	border-radius: 50px;
+}
+
+.fontTheme {
+	font-family: 'Chango', cursive;
+	color: #b14377 !important; font-family : 'Chango', cursive;
+	font-size: 30px;
+}
+
+.Theme {
+	font-family: 'Chango', cursive;
+	color: #b14377 !important; font-family : 'Chango', cursive;
+	font-size: 19px;
+}
+.cardColor {
+	background: #f3e5f5;
+}
+
+.toggle i {
+	margin-left: -100px;
+	cursor: pointer;
+}
+
+/* css for only lofin page */
+
+#login .container #login-row #login-column #login-box {
+  margin-top: 120px;
+  max-width: 600px;
+  height: 380px;
+  border: 1px solid #9C9C9C;
+  background-color: #f3e5f5;
+}
+#login .container #login-row #login-column #login-box #login-form {
+  padding: 20px;
+}
+#login .container #login-row #login-column #login-box #login-form #register-link {
+  margin-top: -75px;
+}
+
+.align {
+	display: flex;
+	justify-content: flex-end;
+}
+/* css for only login page */
+
+/* styling sidebar in user dash board */
+
+.sidebar {
+	width: 18%;
+	height: 100vh;
+	position: fixed;
+	background: #BB83DB;
+	z-index: 1;
+}
+
+.sidebar a {
+	display: block;
+	width: 100%;
+	margin-top: 35px;
+	text-decoration: none;
+	padding: 15px 40px;
+	color: black;
+}
+
+.sidebar a:hover {
+	background: #e3f2fd;
+}
+
+.sidebar .divider {
+	margin-top: 10px;
+	height: .5px;
+	width: 100%;
+	background: gray;
+}
+
+@media only screen and (max-width: 600px) {
+	.sidebar {
+		display: none;
+		width: 80% !important;
+		background: #e7d6ef;
+		height: vh;
+		position: fixed;
+		padding-top: 20px;
+	}
+	.content {
+		margin-left: 0% !important;
+	}
+}
+
+.sidebar .cross {
+	position: absolute;
+	top: 0px;
+	right: 10px;
+	font-size: 30px;
+	cursor :pointer;
+	padding-bottom: 30px;
+}
+/* styling sidebar in user dash board */
+
+
+
+/* styling content of user dashboard */
+
+.content {
+	margin-left: 20%;
+}
+.content .notifybar {
+	cursor: pointer;
+}
+/* styling content of user dashboard */
+
+
+.profilePic {
+	width: 45px;
+	height: 45px;
+	object-fit: cover;
+	border-radius: 50%;
+}
