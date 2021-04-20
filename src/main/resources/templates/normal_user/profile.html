@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+	th:replace="normal_user/base::layout(~{::section})">
+<head>
+<meta charset="UTF-8" />
+<title th:text="title">Home</title>
+</head>
+<body>
+	<section>
+		<div class="container">
+			<div class="card">
+				<div class="container text-center" >
+					<img style="height: 250px; width: 300px;" alt="profile pic" th:src="@{'/image/'+${user.user_ImageUrl}}">
+				</div>
+				
+				<h3 class="mt-3 fontTheme text-center">
+						<span th:text="${user.user_Name}"></span>
+					</h3>
+				
+				<div class="card-body">
+					<table class="table container table-dark table-striped mt-3 text-center" style="width: 90%">
+						<thead>
+							<tr>
+								<th scope="col">User Id</th>
+								<th scope="col" th:text="USER+${user.user_Id}"></th>
+							</tr>
+						</thead>
+						<thead>
+							<tr>
+								<th scope="col">User Name</th>
+								<th scope="col" th:text="${user.user_Name}"></th>
+							</tr>
+						</thead>
+						<thead>
+							<tr>
+								<th scope="col">User Email ID</th>
+								<th scope="col" th:text="${user.user_Email}"></th>
+							</tr>
+						</thead>
+						<thead>
+							<tr>
+								<th scope="col">User Role</th>
+								<th scope="col" th:text="${user.user_Role}"></th>
+							</tr>
+						</thead>
+						<thead>
+							<tr>
+								<th scope="col">Is User Active?</th>
+								<th scope="col" th:text="${user.user_Status}"></th>
+							</tr>
+						</thead>
+						<thead>
+							<tr>
+								<th scope="col">User Description</th>
+								<th scope="col" th:text="${user.user_Description}"></th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+		</div>
+	</section>
+</body>
+</html>

@@ -7,7 +7,25 @@
 </head>
 <body>
 	<section>
-		<h1>This is private dashboard</h1>
+		<div class="container">
+			<div class="card">
+				<div class="card-body">
+					<div class="container text-center" >
+						<img style="height: 350px; width: 300px;" alt="profile pic" th:src="@{/image/home.jpg/}">
+					</div>
+					<h1 class="text-center fontTheme">
+						😎😎Start saving your contacts on cloud😎😎
+					</h1>
+					
+					<div class="container text-center mt-4">
+					
+						<a th:href="@{/user/addContact}" class="btn btn-primary btn-block buttonStyle text-uppercase">Start Adding Contacts</a>
+						
+					</div>
+					
+				</div>
+			</div>
+		</div>
 	</section>
 </body>
 </html>

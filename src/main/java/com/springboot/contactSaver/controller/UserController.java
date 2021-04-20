@@ -51,7 +51,7 @@ public class UserController {
 		System.out.println("---------------------------------------------------------");
 		String name = principal.getName();
 		User user = userRepo.getUserByUserName(name);
-		System.out.println("User's Name is: " + user.getUser_Name());
+//		System.out.println("User's Name is: " + user.getUser_Name());
 		model.addAttribute("user", user);
 	}
 
@@ -108,7 +108,7 @@ public class UserController {
 			model.addAttribute("contact", new Contact());
 			session.setAttribute("message",
 					new Message("Congrats! you are successfully registered!!", "alert-success"));
-			Thread.sleep(2000);
+			Thread.sleep(1000);
 			return "normal_user/add_contact_form";
 
 		} catch (Exception e) {
@@ -178,5 +178,69 @@ public class UserController {
 		}
 
 		return "redirect:/user/viewcontacts/0";
+	}
+
+	@RequestMapping(path = "/updateContact/{cId}", method = RequestMethod.GET)
+	public String updateContact(@PathVariable("cId") Integer id, Model model, Principal principal,
+			HttpSession session) {
+//		System.out.println("Contact update form");
+		model.addAttribute("title", "Update Contact Form");
+		Contact contact = this.contactRepo.findContactDetailByUserId(id);
+		model.addAttribute("contact", contact);
+		return "normal_user/updateform";
+	}
+
+	@RequestMapping(path = "/process-update", method = RequestMethod.POST)
+	public String processUpdate(@ModelAttribute Contact contact, BindingResult result, Model model, Principal principal,
+			@RequestParam("contact_ImageUrl") MultipartFile file, @RequestParam("contact_Id") Integer id,
+			HttpSession session) {
+		
+			Contact oldContactDetail = this.contactRepo.findContactDetailByUserId(contact.getContact_Id());
+			
+//			System.out.println(oldContactDetail);
+		try {
+			if (!file.isEmpty()) {
+//				System.out.println("File is not empty");
+				
+//				delete old contact
+				File deleteFile = new ClassPathResource("static/image").getFile();
+				File file3 = new File(deleteFile, oldContactDetail.getContact_ImageUrl());
+				file3.delete();
+				
+//				update new contact
+				File file2 = new ClassPathResource("static/image").getFile();
+//				System.out.println(file2);
+				Path path = Paths.get(file2.getAbsolutePath() + File.separator + file.getOriginalFilename());
+//				System.out.println(path);
+				Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+				
+				contact.setContact_ImageUrl(file.getOriginalFilename());
+				
+			} else {
+				contact.setContact_ImageUrl(oldContactDetail.getContact_ImageUrl());
+			}
+			
+			User user = this.userRepo.getUserByUserName(principal.getName());
+			
+			contact.setUser(user);
+			
+			this.contactRepo.save(contact);
+			
+			session.setAttribute("message", new Message("Details successfully uploaded","alert-success"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("Contact Name: " + contact.getContact_Name());
+		System.out.println("Contact Id: " + contact.getContact_Id());
+
+		return "redirect:/user/viewcontacts/"+0;
+	}
+	
+	@RequestMapping(path = "/profile", method = RequestMethod.GET)
+	public String profile(Model model) {
+		model.addAttribute("title", "User Profile");
+		return "normal_user/profile";
 	}
 }
