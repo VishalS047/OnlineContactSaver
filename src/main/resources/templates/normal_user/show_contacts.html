@@ -11,12 +11,26 @@
 					<p th:text="${session.message.content}">
 					
 					</p>
+					
 					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
 	</div>
-		<div class="card m-5" >
+	
+		<div class="card m-4" >
+		
 			<div class="card-body">
+			
 				<h1 class="text-center fontTheme mb-4">Your Contacts</h1>
-				<table class="table table-dark table-striped">
+				
+				<!-- search bar -->
+				<div class="search-container mb-4">
+										
+
+					
+					
+					
+				</div>
+				<div class="table-responsive">
+				<table class="table table-dark table-striped table-hover">
 					<thead>
 						<tr>
 							<th scope="col">ID</th>
@@ -53,7 +67,7 @@
 
 					</tbody>
 				</table>
-
+				</div>
 				<div class="container center">
 					<nav aria-label="Page navigation example">
 						<ul class="pagination">
@@ -76,8 +90,26 @@
 							</li>
 						</ul>
 					</nav>
+					
+					<input onkeyup="search()" id="search-input" class="form-control" placeholder="Search your contacts here.">
+					
+					<div class="search-result">
+					
+						<h2>This is search result.</h2>
+						
+					</div>
 				</div>
 			</div>
+			
+			<script type="text/javascript">
+	
+				$(document).ready(()=>{
+					$(".item").removeClass("active");
+					$("#view-contact").addClass("active");
+				});
+		
+			</script>
+			
 		</div>
 	</section>
 </body>

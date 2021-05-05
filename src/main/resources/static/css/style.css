@@ -157,3 +157,22 @@ body {
 	object-fit: cover;
 	border-radius: 50%;
 }
+
+/* Search Bar CSS */
+.search-container{
+	position: relative;
+}
+.search-result {
+	position: absolute;
+	width: 100%;
+	padding: 10px;
+	color: white;
+	background: white;
+	border: 2px solid black;
+	display: none;
+}
+
+.active {
+	background-color: #9b43cb;
+	color: white !important;
+}

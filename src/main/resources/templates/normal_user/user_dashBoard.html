@@ -10,6 +10,17 @@
 		<div class="container">
 			<div class="card">
 				<div class="card-body">
+				
+					
+					<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary text-center" role="alert">
+				
+								<p th:text="${session.message.content}"></p>
+					
+								<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					
+					</div>
+					
+					
 					<div class="container text-center" >
 						<img style="height: 350px; width: 300px;" alt="profile pic" th:src="@{/image/home.jpg/}">
 					</div>

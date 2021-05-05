@@ -13,22 +13,23 @@
 			<div class="card-body">
 
 				<h1 class="text-center fontTheme">Add Contact Form</h1>
-				<div th:if="${session.message}"
-					th:classappend="${session.message.type}"
-					class="alert alert-primary text-center" role="alert">
+				
+				<div th:if="${session.message}" th:classappend="${session.message.type}" class="alert alert-primary text-center" role="alert">
+				
 					<p th:text="${session.message.content}"></p>
+					
 					<th:block th:text="${#session.removeAttribute('message')}"></th:block>
+					
 				</div>
+				
 				<div class="container-fluid mt-2">
 
 					<div class="row">
 
 						<div class="col-md-8 offset-md-2">
 
-							<form action="#" novalidate="novalidate"
-								th:action="@{/user/process-contact}" th:object="${contact}"
-								enctype="multipart/form-data" method="post" class="mt-2">
-
+							<form action="#" novalidate="novalidate" th:action="@{/user/process-contact}" th:object="${contact}" enctype="multipart/form-data" method="post" class="mt-2">
+							
 								<!-- Input Full Name -->
 								<div class="input-group">
 
@@ -42,13 +43,9 @@
 
 									</div>
 
-									<input type="text" placeholder="Enter full name here."
-										th:value="${contact.contact_Name}"
-										th:classappend="${#fields.hasErrors('contact_Name') ? 'is-invalid' : ''}"
-										id="firstName" name="contact_Name" class="form-control">
-
-									<div class="invalid-feedback"
-										th:each="e : ${#fields.errors('contact_Name')}" th:text="${e}">
+									<input type="text" placeholder="Enter full name here." th:value="${contact.contact_Name}" th:classappend="${#fields.hasErrors('contact_Name') ? 'is-invalid' : ''}" id="firstName" name="contact_Name" class="form-control">
+									
+									<div class="invalid-feedback" th:each="e : ${#fields.errors('contact_Name')}" th:text="${e}">
 
 									</div>
 
@@ -68,13 +65,9 @@
 
 									</div>
 
-									<input type="text" placeholder="Enter nickname here."
-										th:value="${contact.contact_NickName}" id="nickName"
-										name="contact_NickName" class="form-control">
+									<input type="text" placeholder="Enter nickname here." th:value="${contact.contact_NickName}" id="nickName" name="contact_NickName" class="form-control">
 
-									<div class="invalid-feedback"
-										th:each="e : ${#fields.errors('contact_NickName')}"
-										th:text="${e}"></div>
+									<div class="invalid-feedback" th:each="e : ${#fields.errors('contact_NickName')}" th:text="${e}"></div>
 
 								</div>
 
@@ -91,14 +84,9 @@
 
 									</div>
 
-									<input type="text" placeholder="Enter Email here." id="email"
-										th:classappend="${#fields.hasErrors('contact_EmailID') ? 'is-invalid' : ''}"
-										th:value="${contact.contact_EmailID}" name="contact_EmailID"
-										class="form-control">
-
-									<div class="invalid-feedback"
-										th:each="e : ${#fields.errors('contact_EmailID')}"
-										th:text="${e}"></div>
+									<input type="text" placeholder="Enter Email here." id="email" th:classappend="${#fields.hasErrors('contact_EmailID') ? 'is-invalid' : ''}" th:value="${contact.contact_EmailID}" name="contact_EmailID" class="form-control">
+									
+									<div class="invalid-feedback" th:each="e : ${#fields.errors('contact_EmailID')}" th:text="${e}"></div>
 
 								</div>
 								<!-- Input phone Number -->
@@ -114,14 +102,9 @@
 
 									</div>
 
-									<input type="text" placeholder="Enter mobile number here."
-										th:classappend="${#fields.hasErrors('contact_PhoneNo') ? 'is-invalid' : ''}"
-										th:value="${contact.contact_PhoneNo}" id="email"
-										name="contact_PhoneNo" class="form-control">
-
-									<div class="invalid-feedback"
-										th:each="e : ${#fields.errors('contact_PhoneNo')}"
-										th:text="${e}"></div>
+									<input type="text" placeholder="Enter mobile number here." th:classappend="${#fields.hasErrors('contact_PhoneNo') ? 'is-invalid' : ''}" th:value="${contact.contact_PhoneNo}" id="email" name="contact_PhoneNo" class="form-control">
+									
+										<div class="invalid-feedback" th:each="e : ${#fields.errors('contact_PhoneNo')}" th:text="${e}"></div>
 
 								</div>
 								<!-- input profession -->
@@ -137,8 +120,7 @@
 
 									</div>
 
-									<input type="text" placeholder="Enter profession here."
-										id="email" name="contact_Profession" class="form-control">
+									<input type="text" placeholder="Enter profession here." id="email" name="contact_Profession" class="form-control">
 
 								</div>
 
@@ -146,9 +128,7 @@
 
 								<div class="form-group mt-3">
 
-									<textarea placeholder="Enter contact description here."
-										class="form-control" name="contact_Description"
-										id="mytextarea" rows="15"></textarea>
+									<textarea placeholder="Enter contact description here." class="form-control" name="contact_Description" id="mytextarea" rows="15"></textarea>
 
 								</div>
 
@@ -157,11 +137,17 @@
 									<input type="file" name="contact_ImageUrl" id="profilePic">
 								</div>
 
-								<div class="conatiner mt-3 text-center">
-									<button type="submit" class="btn btn-primary">Save
-										Contact</button>
-									<button type="reset" class="btn btn-primary">Reset
-										Form</button>
+								<div class="conatiner mt-3 text-center"> 
+								
+									<button type="submit" class="btn btn-primary">
+										Save Contact
+									</button>
+									
+									<button type="reset" class="btn btn-primary">
+									
+										Reset Form
+										
+									</button>
 								</div>
 
 							</form>
@@ -175,13 +161,23 @@
 			</div>
 
 		</div>
-		<script
-			src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin">
+		
+		<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin">
+		
 		</script>
 		
 		<script>
       		tinymce.init({selector: '#mytextarea'});
     	</script>
+    	
+    	<script type="text/javascript">
+	
+		$(document).ready(()=>{
+			$(".item").removeClass("active");
+			$("#add-contact").addClass("active");
+		});
+		
+	</script>
 
 	</section>
 </body>

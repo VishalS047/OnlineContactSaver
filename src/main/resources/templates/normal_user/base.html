@@ -1,77 +1,107 @@
 <!doctype html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org"
-	th:fragment="layout(content)">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:fragment="layout(content)">
 <head>
 <!-- Required meta tags -->
 <meta charset="utf-8">
+
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Bootstrap CSS -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl"
-	crossorigin="anonymous">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet"	integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
 
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"
-	integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w=="
-	crossorigin="anonymous" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" integrity="sha512-iBBXm8fW90+nuLcSKlbmrPcLa0OT92xO1BIsZ+ywDWZCvqsWgccV3gFoRBv0z+8dLJgyAHIhR35VZc2oM/gI1w==" crossorigin="anonymous" />
+
 <link rel="stylesheet" th:href="@{/css/style.css/}">
 
 <link rel="preconnect" href="https://fonts.gstatic.com">
-<link
-	href="https://fonts.googleapis.com/css2?family=Chango&display=swap"
-	rel="stylesheet">
+
+<link href="https://fonts.googleapis.com/css2?family=Chango&display=swap" rel="stylesheet">
 
 <title th:text="${title}">Base html</title>
+
 </head>
+
 <body>
 	<!-- start of navbar -->
 	<nav class="navbar navbar-expand-lg navbar-dark bg-primary homeNavbar">
+	
 		<div class="container-fluid">
+		
 			<a class="navbar-brand" th:href="@{/}">Contact backup</a>
-			<button class="navbar-toggler" type="button"
-				data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-				aria-controls="navbarSupportedContent" aria-expanded="false"
-				aria-label="Toggle navigation">
+			
+			<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			
 				<span class="navbar-toggler-icon"></span>
+				
 			</button>
+			
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
+			
 				<ul class="navbar-nav ms-auto mb-2 mb-lg-0 text-uppercase">
 
 					<!-- <li class="nav-item"><a class="nav-link active"
 						aria-current="page" th:href="@{/}">Home</a></li> -->
 
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page"><span th:text="${user.getUser_Name}"></span></a></li>
+					<li class="nav-item">
+						<a class="nav-link active" aria-current="page"><span th:text="${user.getUser_Name}"></span>
+						</a>
+					</li>
 
 
 
 
 
-					<li class="nav-item"><a class="nav-link active"
-						aria-current="page" th:href="@{/logout}">Log out</a></li>
+					<li class="nav-item"><a class="nav-link active" aria-current="page" th:href="@{/logout}">Log out</a></li>
 
 					<!-- <li class="nav-item"><a class="nav-link active" aria-current="page" href="@{/about/}">About</a></li> -->
 
 
 				</ul>
+				
 			</div>
+			
 		</div>
+		
 	</nav>
+	
 	<!-- end of navbar -->
 
 	<!-- start of sidebar -->
 	<div class="sidebar">
 
-		<span onclick="toggleSideBar()" class="cross">&times;</span> <a
-			th:href="@{/user/dash}" class="item"><i class="fas fa-house-user"></i>
-			Home</a> <a th:href="@{/user/viewcontacts/0}" class="item"><i class="fas fa-address-book"></i> View Contacts</a> 
-			<a th:href="@{/user/addContact}" class="item"><i class="fas fa-pencil-alt"></i> Add Contact</a> 
-			<a th:href="@{/user/profile}" class="item"><i	class="fas fa-user"></i> Profile</a>
-			<a href="#" class="item"><i	class="fas fa-cogs"></i> Settings</a> 
-			<a th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i> Logout</a>
+		<span onclick="toggleSideBar()" class="cross">&times;</span>
+		 <a id="home-link" th:href="@{/user/dash}" class="item"><i class="fas fa-house-user"></i>
+		
+			Home
+		
+		</a>
+		 <a id="view-contact" th:href="@{/user/viewcontacts/0}" class="item"><i class="fas fa-address-book"></i> 
+		 
+		 View Contacts
+		 
+		 </a> 
+		 <a id="add-contact" th:href="@{/user/addContact}" class="item"><i class="fas fa-pencil-alt"></i>
+		 
+		  Add Contact
+		  
+		  </a> 
+			<a id="profile" th:href="@{/user/profile}" class="item"><i	class="fas fa-user"></i>
+			 
+			 Profile
+			 
+			 </a>
+			<a id="setting" href="#" th:href="@{/user/settings}" class="item"><i	class="fas fa-cogs"></i> 
+			
+			Settings
+			
+			</a> 
+			
+			<a id="logout" th:href="@{/logout}" class="item"><i class="fas fa-sign-out-alt"></i>
+			
+			 Logout
+			 
+			 </a>
+			 
 		<div class="divider"></div>
 
 	</div>
@@ -82,6 +112,7 @@
 
 		<i onclick="toggleSideBar()" class="fas fa-bars m-3 notifybar"></i>
 		<div th:replace="${content}"></div>
+		
 	</div>
 
 	<!-- this is end of content -->
@@ -131,6 +162,8 @@
 		
 	
 	</script>
+	
+	
 
 	<script type="text/javascript" th:src="@{/javascript/script.js/}"></script>
 

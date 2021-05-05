@@ -11,6 +11,8 @@ import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "Contact_Table")
 public class Contact {
@@ -35,6 +37,7 @@ public class Contact {
 	private String contact_ImageUrl;
 //	(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@ManyToOne
+	@JsonIgnore
 	private User user;
 
 //	@Override

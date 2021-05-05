@@ -17,6 +17,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -44,7 +45,10 @@ public class UserController {
 
 	@Autowired
 	private ContactRepository contactRepo;
-
+	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
 	/* method to add common data to response */
 	@ModelAttribute
 	public void addCommonData(Model model, Principal principal) {
@@ -243,4 +247,34 @@ public class UserController {
 		model.addAttribute("title", "User Profile");
 		return "normal_user/profile";
 	}
+	
+	@RequestMapping(path = "/settings" , method = RequestMethod.GET)
+	public String settings() {
+		
+		return "normal_user/settings";
+	}
+	@RequestMapping(path = "/change-password", method = RequestMethod.POST)
+	public String changePassword(@RequestParam("oldPassword") String oldPassword, @RequestParam("newPassword") String newPassword,Principal principal,Model model,HttpSession session) {
+		
+		
+		String userName = principal.getName();
+		User currentUser = this.userRepo.getUserByUserName(userName);
+		
+		if(bcryptPasswordEncoder.matches(oldPassword, currentUser.getUser_Passcode())) {
+			
+			System.out.println("oldPASSWORD "+oldPassword);
+			System.out.println("oldPASSWORD "+newPassword);
+			
+			currentUser.setUser_Passcode(this.bcryptPasswordEncoder.encode(newPassword));
+			this.userRepo.save(currentUser);
+			session.setAttribute("message", new Message("Password successfully changed!","alert-success"));
+		} 
+		else {
+			session.setAttribute("message", new Message("Old password does not match!","alert-danger"));
+			return "redirect:/user/settings";
+		}
+		
+		return "redirect:/user/dash";
+	}
 }
+
