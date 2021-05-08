@@ -176,3 +176,12 @@ body {
 	background-color: #9b43cb;
 	color: white !important;
 }
+
+#links_in_signinpage {
+	text-decoration: none;
+	color:  #9b43cb !important;
+}
+
+#links_in_signinpage:hover {
+	font: black;
+}
