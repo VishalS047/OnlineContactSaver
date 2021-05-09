@@ -6,17 +6,19 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.security.Principal;
-import java.util.List;
-import java.util.Optional;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -25,16 +27,23 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.razorpay.Order;
+import com.razorpay.RazorpayClient;
 import com.springboot.contactSaver.dao.ContactRepository;
+import com.springboot.contactSaver.dao.MyOrderRepo;
 import com.springboot.contactSaver.dao.UserRepository;
 import com.springboot.contactSaver.entities.Contact;
+import com.springboot.contactSaver.entities.OrderDetails;
 import com.springboot.contactSaver.entities.User;
 import com.springboot.contactSaver.helper.Message;
+
 
 @Controller
 @RequestMapping(path = "/user")
@@ -48,6 +57,9 @@ public class UserController {
 	
 	@Autowired
 	private BCryptPasswordEncoder bcryptPasswordEncoder;
+	
+	@Autowired
+	private MyOrderRepo myOrderRepo;
 	
 	/* method to add common data to response */
 	@ModelAttribute
@@ -275,6 +287,71 @@ public class UserController {
 		}
 		
 		return "redirect:/user/dash";
+	}
+	
+//	creating order for payment
+	@PostMapping(path = "/create_order")
+	@ResponseBody
+	public String createOrder(@RequestBody Map<String, Object> data, Principal principal) throws Exception {
+//		System.out.println("Order successfully placed");
+		
+		int amt = Integer.parseInt(data.get("amount").toString());
+		RazorpayClient client = new RazorpayClient("rzp_test_VxtfatH6wU2Kx4","s9oLmhRIK9XPMxE5luPyHNk1");
+		System.out.println(data); 
+		
+		JSONObject obj = new JSONObject();
+		obj.put("amount", amt*100);
+		obj.put("currency", "INR");
+		obj.put("receipt", "txn_1694512");
+		
+//		creating new order
+
+		Order order = client.Orders.create(obj);
+		System.out.println(order);
+		
+		String name = principal.getName();
+		User user = userRepo.getUserByUserName(name);
+		
+		
+		
+		OrderDetails orderDetails = new OrderDetails();
+		
+		orderDetails.setAmount(order.get("amount")+"");
+		orderDetails.setOrderId(order.get("id"));
+		orderDetails.setPaymentId(null);
+		orderDetails.setStatus("created");
+		orderDetails.setUser(user);
+		orderDetails.setReceipt(order.get("receipt"));
+		
+		this.myOrderRepo.save(orderDetails);
+		
+		return order.toString();
+	}
+	
+	@PostMapping(path="/update_order")
+	public ResponseEntity<?> updateOrder(@RequestBody Map<String, Object> data) {
+		
+		OrderDetails myOrder = this.myOrderRepo.findByOrderId(data.get("order_id").toString());
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		myOrder.setPaymentId(data.get("payment_Id").toString());
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		myOrder.setStatus(data.get("status").toString());
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		System.out.println("askcascasuvavbasv asovhasvoashivaoshvsao");
+		this.myOrderRepo.save(myOrder);
+		
+		return ResponseEntity.ok(Map.of("msg", "updated"));
 	}
 }
 
